@@ -1,0 +1,2 @@
+fid_score,inception_score,inception_std,timestamp,experiment
+468.89,1.23,0.16,2025-07-29 16:31:15,DCGAN_final
