@@ -104,12 +104,5 @@ To share progress:
 
 - Share visuals from `results/` or screenshots of `notebook` plots
 
-## TODOs & Extensions
-- [ ] Add conditional GAN with class labels
-
-- [ ] Implement style-based generator (e.g. StyleGAN lite)
-
-- [ ] Push best models to HuggingFace
-
 ## Credits
 Built and published by Arlon Junior Moleka using PyTorch, CIFAR-10.
