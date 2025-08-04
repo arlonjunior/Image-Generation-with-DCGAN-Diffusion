@@ -4,29 +4,27 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
-import numpy as np
 
 # ─────────────────────────────────────────────
-# PATH CONFIGURATION — SAFELY RESOLVE PROJECT ROOT
+# PATH CONFIGURATION — SAFE PROJECT RESOLUTION
 # ─────────────────────────────────────────────
-# Dynamically detect your project's root directory
+# Dynamically locate your project's root directory
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# Set full file paths for CSV and image folder
+# Full file paths for training logs and GAN outputs
 LOG_CSV = os.path.join(PROJECT_ROOT, 'logs', 'training_log.csv')
 SAMPLES_DIR = os.path.join(PROJECT_ROOT, 'results', 'generated_images')
 
-# Print paths for debug purposes
+# Debug output to confirm path resolution
 print(f"[DEBUG] Resolved log path: {LOG_CSV}")
 print(f"[DEBUG] Resolved samples dir: {SAMPLES_DIR}")
 
 # ─────────────────────────────────────────────
-# LOSS CURVE PLOTTING — GAN Generator/Discriminator
+# LOSS CURVE PLOTTING FOR GAN
 # ─────────────────────────────────────────────
 def plot_loss_curves(log_path):
     """
-    Plot GAN training loss curves from CSV file.
-
+    Plot Generator and Discriminator loss curves from training log CSV.
     Expected columns: 'Epoch', 'Generator_Loss', 'Discriminator_Loss'
     """
     if not os.path.exists(log_path):
@@ -35,7 +33,7 @@ def plot_loss_curves(log_path):
 
     df = pd.read_csv(log_path)
 
-    # Validate required columns
+    # Check for required columns
     if {'Epoch', 'Generator_Loss', 'Discriminator_Loss'}.issubset(df.columns):
         plt.figure(figsize=(8, 5))
         plt.plot(df['Epoch'], df['Generator_Loss'], label='Generator Loss', color='blue')
@@ -51,59 +49,41 @@ def plot_loss_curves(log_path):
         print("CSV missing expected columns: 'Epoch', 'Generator_Loss', 'Discriminator_Loss'")
 
 # ─────────────────────────────────────────────
-# IMAGE GRID DISPLAY — GENERATED IMAGE CHECK & VISUALIZATION
+# INDIVIDUAL IMAGE DISPLAY FOR SELECTED EPOCHS
 # ─────────────────────────────────────────────
-def show_grid(image_paths, cols=5, figsize=(12, 6)):
+def show_individual_epochs(epoch_list, samples_dir):
 
-    # Displaying a grid of sample images from GAN output.
-    # image_paths: list of full image file paths
-    # cols: number of columns in the grid
-    # figsize: size of matplotlib figure
+    # Display of each GAN-generated image for each epoch
 
-    imgs_with_names = []
+    for epoch in epoch_list:
+        file_name = f"epoch_{epoch:03d}.png"
+        image_path = os.path.join(samples_dir, file_name)
+        print(f"[DEBUG] Loading image for epoch {epoch}: {image_path}")
 
-    for path in image_paths:
-        print(f"[DEBUG] Checking image: {path}")
-        if os.path.exists(path):
-            try:
-                img = Image.open(path).convert('RGB')
-                imgs_with_names.append((img, os.path.basename(path)))
-            except Exception as e:
-                print(f"Could not open {path}: {e}")
-        else:
-            print(f"File not found: {path}")
+        if not os.path.exists(image_path):
+            print(f"Image not found: {image_path}")
+            continue
 
-    if not imgs_with_names:
-        print("No valid images found. Skipping grid display.")
-        return
-
-    rows = int(np.ceil(len(imgs_with_names) / cols))
-    fig, axes = plt.subplots(rows, cols, figsize=figsize)
-    axes = axes.flatten()
-
-    for ax, (img, name) in zip(axes, imgs_with_names):
-        ax.imshow(img)
-        ax.set_title(name, fontsize=8)
-        ax.axis('off')
-
-    # Turn off unused axes
-    for ax in axes[len(imgs_with_names):]:
-        ax.axis('off')
-
-    plt.tight_layout()
-    plt.show()
+        try:
+            img = Image.open(image_path).convert('RGB')
+            plt.figure(figsize=(6, 6))
+            plt.imshow(img)
+            plt.title(f"Generated Image — Epoch {epoch}")
+            plt.axis('off')
+            plt.tight_layout()
+            plt.show()
+        except Exception as e:
+            print(f"Failed to open {image_path}: {e}")
 
 # ─────────────────────────────────────────────
-# RUN VISUALIZATION PIPELINE
+# EXECUTE VISUALIZATION PIPELINE
 # ─────────────────────────────────────────────
 
-# Plot training loss curves
+# Step 1: Plot training loss curves
 plot_loss_curves(LOG_CSV)
 
-# Define which epochs’ sample images to show
+# Step 2: Display individual sample images for selected epochs
 epochs_to_show = [1, 5, 10, 20, 30]
-paths = [os.path.join(SAMPLES_DIR, f'epoch_{e:03d}.png') for e in epochs_to_show]
+show_individual_epochs(epochs_to_show, SAMPLES_DIR)
 
-# Show image grid of selected epochs
-show_grid(paths)
 

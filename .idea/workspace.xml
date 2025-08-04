@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67d1ddad-37ed-4e63-a23e-96db960367e2" name="Changes" comment="Commit">
+      <change afterPath="$PROJECT_DIR$/notebooks/metric_analysis_diffusion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/evaluate_diffusion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/visualize_diffusion.py" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/visualize_diffusion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/training_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/training_visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,24 +34,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.convert_cifar.executor&quot;: &quot;Run&quot;,
-    &quot;Python.data_loader.executor&quot;: &quot;Run&quot;,
-    &quot;Python.evaluate.executor&quot;: &quot;Run&quot;,
-    &quot;Python.evaluate_inception_only.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.metric_analysis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.model.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train_diffusion.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train_gan.executor&quot;: &quot;Run&quot;,
-    &quot;Python.training_visualization.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visualize_diffusion.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.convert_cifar.executor": "Run",
+    "Python.data_loader.executor": "Run",
+    "Python.evaluate.executor": "Run",
+    "Python.evaluate_diffusion.executor": "Run",
+    "Python.evaluate_inception_only.executor": "Run",
+    "Python.generator.executor": "Run",
+    "Python.inception_score.executor": "Run",
+    "Python.metric_analysis.executor": "Run",
+    "Python.metric_analysis_diffusion.executor": "Run",
+    "Python.model.executor": "Run",
+    "Python.train.executor": "Run",
+    "Python.train_diffusion.executor": "Run",
+    "Python.train_gan.executor": "Run",
+    "Python.training_visualization.executor": "Run",
+    "Python.visualize_diffusion.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\arlon\PycharmProjects\DLGAI_Project\src" />
@@ -128,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753999272258</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Commit">
+      <option name="closed" value="true" />
+      <created>1754273849160</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1754273849160</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
