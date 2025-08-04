@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 
 # ─────────────────────────────────────────────
-# 🧭 PATH CONFIGURATION — SAFELY RESOLVE PROJECT ROOT
+# PATH CONFIGURATION — SAFELY RESOLVE PROJECT ROOT
 # ─────────────────────────────────────────────
 # Dynamically detect your project's root directory
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -21,7 +21,7 @@ print(f"[DEBUG] Resolved log path: {LOG_CSV}")
 print(f"[DEBUG] Resolved samples dir: {SAMPLES_DIR}")
 
 # ─────────────────────────────────────────────
-# 📉 LOSS CURVE PLOTTING — GAN Generator/Discriminator
+# LOSS CURVE PLOTTING — GAN Generator/Discriminator
 # ─────────────────────────────────────────────
 def plot_loss_curves(log_path):
     """
@@ -30,7 +30,7 @@ def plot_loss_curves(log_path):
     Expected columns: 'Epoch', 'Generator_Loss', 'Discriminator_Loss'
     """
     if not os.path.exists(log_path):
-        print(f"⚠️ Log file not found at {log_path}. Skipping loss plot.")
+        print(f"Log file not found at {log_path}. Skipping loss plot.")
         return
 
     df = pd.read_csv(log_path)
@@ -48,20 +48,18 @@ def plot_loss_curves(log_path):
         plt.tight_layout()
         plt.show()
     else:
-        print("⚠️ CSV missing expected columns: 'Epoch', 'Generator_Loss', 'Discriminator_Loss'")
+        print("CSV missing expected columns: 'Epoch', 'Generator_Loss', 'Discriminator_Loss'")
 
 # ─────────────────────────────────────────────
-# 🖼️ IMAGE GRID DISPLAY — GENERATED IMAGE CHECK & VISUALIZATION
+# IMAGE GRID DISPLAY — GENERATED IMAGE CHECK & VISUALIZATION
 # ─────────────────────────────────────────────
 def show_grid(image_paths, cols=5, figsize=(12, 6)):
-    """
-    Display a grid of sample images from GAN output.
 
-    Arguments:
-    - image_paths: list of full image file paths
-    - cols: number of columns in the grid
-    - figsize: size of matplotlib figure
-    """
+    # Displaying a grid of sample images from GAN output.
+    # image_paths: list of full image file paths
+    # cols: number of columns in the grid
+    # figsize: size of matplotlib figure
+
     imgs_with_names = []
 
     for path in image_paths:
@@ -71,12 +69,12 @@ def show_grid(image_paths, cols=5, figsize=(12, 6)):
                 img = Image.open(path).convert('RGB')
                 imgs_with_names.append((img, os.path.basename(path)))
             except Exception as e:
-                print(f"⚠️ Could not open {path}: {e}")
+                print(f"Could not open {path}: {e}")
         else:
-            print(f"⚠️ File not found: {path}")
+            print(f"File not found: {path}")
 
     if not imgs_with_names:
-        print("⚠️ No valid images found. Skipping grid display.")
+        print("No valid images found. Skipping grid display.")
         return
 
     rows = int(np.ceil(len(imgs_with_names) / cols))
@@ -96,7 +94,7 @@ def show_grid(image_paths, cols=5, figsize=(12, 6)):
     plt.show()
 
 # ─────────────────────────────────────────────
-# 🚀 RUN VISUALIZATION PIPELINE
+# RUN VISUALIZATION PIPELINE
 # ─────────────────────────────────────────────
 
 # Plot training loss curves

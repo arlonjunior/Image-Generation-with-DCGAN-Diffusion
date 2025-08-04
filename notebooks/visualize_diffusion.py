@@ -1,5 +1,8 @@
+
+# src/visualize_diffusion.py
+
 # ─────────────────────────────────────────────
-# 📊 Diffusion Training Visualization
+# Diffusion Training Visualization
 # ─────────────────────────────────────────────
 # Combines:
 #   1. Loss curve plotting from CSV log
@@ -12,7 +15,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # ─────────────────────────────────────────────
-# 📁 Safe Path Resolution
+# Safe Path Resolution
 # ─────────────────────────────────────────────
 
 # Detect script directory
@@ -29,12 +32,12 @@ print(f"[DEBUG] Log path: {log_path}")
 print(f"[DEBUG] Recon path: {recon_dir}")
 
 # ─────────────────────────────────────────────
-# 📈 Plot Loss Curve from CSV
+# Plot Loss Curve from CSV
 # ─────────────────────────────────────────────
 
 def plot_loss_curve():
     if not os.path.exists(log_path):
-        print(f"❌ Log file not found: {log_path}")
+        print(f"Log file not found: {log_path}")
         return
 
     epochs, losses = [], []
@@ -58,7 +61,7 @@ def plot_loss_curve():
     # Optional: save to disk
     save_path = os.path.join(PROJECT_ROOT, "results", "diffusion_loss_curve.png")
     plt.savefig(save_path)
-    print(f"✅ Saved loss plot to: {save_path}")
+    print(f"Saved loss plot to: {save_path}")
     plt.show()
 
 # ─────────────────────────────────────────────
@@ -78,16 +81,16 @@ def view_reconstructions(epochs_to_view):
             plt.title(f"Diffusion Reconstructions — Epoch {epoch}")
             plt.show()
         else:
-            print(f"⚠️ Epoch {epoch} image not found at: {image_path}")
+            print(f"Epoch {epoch} image not found at: {image_path}")
 
 # ─────────────────────────────────────────────
-# 🚀 Run Visualizations
+# Run Visualizations
 # ─────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("📊 Visualizing Diffusion Logs...")
+    print("Visualizing Diffusion Logs...")
     plot_loss_curve()
 
-    # 🧮 Epochs you want to inspect (customize anytime)
+    # Epochs you want to inspect (customize anytime)
     desired_epochs = [1, 3, 5, 7, 10]
     view_reconstructions(desired_epochs)

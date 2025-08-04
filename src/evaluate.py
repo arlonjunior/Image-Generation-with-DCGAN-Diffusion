@@ -8,7 +8,7 @@ import os
 from datetime import datetime
 
 # ─────────────────────────────────────────────
-# 📊 Metrics CSV Logger
+# Metrics CSV Logger
 # ─────────────────────────────────────────────
 def log_metrics(metrics_dict, csv_path, experiment_id='baseline'):
     metrics_dict['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -22,7 +22,7 @@ def log_metrics(metrics_dict, csv_path, experiment_id='baseline'):
         writer.writerow(metrics_dict)
 
 # ─────────────────────────────────────────────
-# 🧪 GAN Evaluation Runner
+# GAN Evaluation Runner
 # ─────────────────────────────────────────────
 def evaluate_results():
     project_root = 'C:/Users/arlon/PycharmProjects/DLGAI_Project'
@@ -37,11 +37,11 @@ def evaluate_results():
         device='cuda' if torch.cuda.is_available() else 'cpu',
         dims=2048
     )
-    print(f"✅ FID Score: {fid:.2f}")
+    print(f"FID Score: {fid:.2f}")
 
     # Inception Score
     is_score, is_std = get_inception_score(generated_path)
-    print(f"✅ Inception Score: {is_score:.2f} ± {is_std:.2f}")
+    print(f"Inception Score: {is_score:.2f} ± {is_std:.2f}")
 
     # Save metrics
     results = {
@@ -51,7 +51,7 @@ def evaluate_results():
     }
     log_metrics(results, csv_path=log_path, experiment_id='DCGAN_final')
 
-# 🚀 Entry
+# Entry
 if __name__ == "__main__":
     evaluate_results()
 

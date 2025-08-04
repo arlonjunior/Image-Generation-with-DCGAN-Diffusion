@@ -28,5 +28,5 @@ def convert_batch(batch_name):
 for batch_file in ['data_batch_1', 'data_batch_2', 'data_batch_3', 'data_batch_4', 'data_batch_5']:
     convert_batch(batch_file)
 
-print("✅ CIFAR-10 images exported to:", OUT_DIR)
+print("CIFAR-10 images exported to:", OUT_DIR)
 

@@ -11,7 +11,7 @@ from tqdm import tqdm
 from src.utils import load_cifar10_data  # Adjust if needed
 
 # ─────────────────────────────────────────────
-# 📁 Directory & File Setup
+# Directory & File Setup
 # ─────────────────────────────────────────────
 
 project_root = "C:/Users/arlon/PycharmProjects/DLGAI_Project"
@@ -26,7 +26,7 @@ os.makedirs(os.path.dirname(log_path), exist_ok=True)
 os.makedirs(recon_dir, exist_ok=True)
 
 # ─────────────────────────────────────────────
-# 🧠 Lightweight U-Net Backbone
+# Lightweight U-Net Backbone
 # ─────────────────────────────────────────────
 
 class UNet(nn.Module):
@@ -45,7 +45,7 @@ class UNet(nn.Module):
         return self.decode(self.encode(x))
 
 # ─────────────────────────────────────────────
-# 🧪 Load and Preprocess CIFAR-10
+# Load and Preprocess CIFAR-10
 # ─────────────────────────────────────────────
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -56,7 +56,7 @@ images = images * 2 - 1  # scale to [-1, 1]
 dataloader = DataLoader(TensorDataset(images), batch_size=64, shuffle=True)
 
 # ─────────────────────────────────────────────
-# 🧠 Initialize Model, Optimizer, Loss
+# Initialize Model, Optimizer, Loss
 # ─────────────────────────────────────────────
 
 model = UNet().to(device)
@@ -67,7 +67,7 @@ start_epoch = 0
 num_epochs = 10
 
 # ─────────────────────────────────────────────
-# ♻️ Resume from Checkpoint (optional)
+# Resume from Checkpoint (optional)
 # ─────────────────────────────────────────────
 
 if os.path.exists(checkpoint_path):
@@ -75,10 +75,10 @@ if os.path.exists(checkpoint_path):
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     start_epoch = checkpoint['epoch'] + 1
-    print(f"✅ Resumed training from epoch {start_epoch}")
+    print(f"Resumed training from epoch {start_epoch}")
 
 # ─────────────────────────────────────────────
-# 📊 Create CSV Log File if Missing
+# Create CSV Log File if Missing
 # ─────────────────────────────────────────────
 
 if not os.path.exists(log_path):
@@ -87,7 +87,7 @@ if not os.path.exists(log_path):
         writer.writerow(["Epoch", "Diffusion_Loss"])
 
 # ─────────────────────────────────────────────
-# 🔁 Training Loop with Reconstructions
+# Training Loop with Reconstructions
 # ─────────────────────────────────────────────
 
 for epoch in range(start_epoch, num_epochs):
@@ -111,14 +111,14 @@ for epoch in range(start_epoch, num_epochs):
         total_loss += loss.item()
 
     avg_loss = round(total_loss, 4)
-    print(f"📉 Epoch {epoch} — Avg Loss: {avg_loss}")
+    print(f"Epoch {epoch} — Avg Loss: {avg_loss}")
 
-    # 📝 Append to CSV log
+    # Append to CSV log
     with open(log_path, mode='a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([epoch + 1, avg_loss])
 
-    # 🖼 Save reconstructions (first 8 samples)
+    # Save reconstructions (first 8 samples)
     with torch.no_grad():
         test_clean = clean[:8]
         test_noisy = noisy[:8]
@@ -130,13 +130,13 @@ for epoch in range(start_epoch, num_epochs):
         save_image(grid, os.path.join(recon_dir, f"epoch_{epoch + 1:03d}.png"),
                    normalize=True, nrow=8)
 
-    # 💾 Save checkpoint
+    # Save checkpoint
     torch.save({
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict()
     }, checkpoint_path)
 
-    print(f"💾 Saved checkpoint and reconstruction for epoch {epoch + 1}")
+    print(f"Saved checkpoint and reconstruction for epoch {epoch + 1}")
 
-print("✅ Diffusion training complete.")
+print("Diffusion training complete.")
